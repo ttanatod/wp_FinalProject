@@ -7,22 +7,34 @@
 			.row
 				- for j in 1..@column do
 					.col
-						%button.btn{class: "btn-primary", :type => "button", "data-row": i, "data-col": j}
+						%button.btn.btn-lg.mt-3{class: "btn-primary", :type => "button", "data-row": i, "data-col": j} 
+							= j
+%p
+	%button.btn.btn-secondary.selected asdf
 :javascript
+	let selected_seat = [];
+
 	$(".btn").click(function(){
-		if($(this).hasClass("btn-primary")) {
-			$(this).removeClass("btn-primary")
-			$(this).addClass("btn-secondary")
-		} else {
-			$(this).removeClass("btn-secondary")
-			$(this).addClass("btn-primary")
-		}
-		console.log("click1")
-		
+		console.log("click!")
+		let row = $(this).attr("data-row")
+		let col = $(this).attr("data-col")
+		if(! $(this).hasClass("btn-sedondary")) {
+			if ($(this).hasClass("selected")) {
+				$(this).removeClass("selected")
+				selected_seat = selected_seat.filter(function(item){ return item[0] != row && item[1] != col})
+				console.log(selected_seat)
+				console.log("unselected")
+			} else {
+				$(this).addClass("selected")
+				selected_seat.push([row, col])
+				console.log("selected")
+				console.log(selected_seat)
+			}
+		} 		
 
-	});
+	});	
 
-	$(".btn-secondary").click(function(){
-		console.log("click2")
-		
-	});
+/ secondary -> sold
+/ primary -> premium
+/ info -> standard
+/ .selected -> selected

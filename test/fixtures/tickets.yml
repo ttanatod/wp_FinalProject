@@ -2,8 +2,8 @@
 
 one:
   timetable: one
-  Chair: one
+  chair: one
 
 two:
   timetable: two
-  Chair: two
+  chair: two

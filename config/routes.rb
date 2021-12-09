@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :tickets
   resources :inventories
   resources :orderlines
   resources :orders
   resources :products
   resources :beverages
-  resources :tickets
   resources :timetables
   resources :chairs
   resources :movies

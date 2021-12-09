@@ -14,7 +14,7 @@ class TicketsTest < ApplicationSystemTestCase
     visit tickets_url
     click_on "New Ticket"
 
-    fill_in "Chair", with: @ticket.Chair_id
+    fill_in "Chair", with: @ticket.chair_id
     fill_in "Timetable", with: @ticket.timetable_id
     click_on "Create Ticket"
 
@@ -26,7 +26,7 @@ class TicketsTest < ApplicationSystemTestCase
     visit tickets_url
     click_on "Edit", match: :first
 
-    fill_in "Chair", with: @ticket.Chair_id
+    fill_in "Chair", with: @ticket.chair_id
     fill_in "Timetable", with: @ticket.timetable_id
     click_on "Update Ticket"
 
