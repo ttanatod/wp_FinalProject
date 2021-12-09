@@ -17,8 +17,11 @@ class MainController < ApplicationController
 		@theater = Theater.find(@timetable.theater_id)
 		@row = @theater.row
 		@column = @theater.column
-		@sold_ticket = Ticket.where(timetable: @timetable)
-		puts @sold_ticket
+		gon.sold_row = @timetable.sold_row
+		gon.sold_col = @timetable.sold_col
+		gon.row = @row
+		gon.col = @column
+		gon.chair_type = @theater.get_chair_type
 	end
 
 end
