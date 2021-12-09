@@ -1,0 +1,28 @@
+%h1 buy ticket
+%p
+	= @timetable
+%p
+	.container
+		- for i in 1..@row do
+			.row
+				- for j in 1..@column do
+					.col
+						%button.btn{class: "btn-primary", :type => "button", "data-row": i, "data-col": j}
+:javascript
+	$(".btn").click(function(){
+		if($(this).hasClass("btn-primary")) {
+			$(this).removeClass("btn-primary")
+			$(this).addClass("btn-secondary")
+		} else {
+			$(this).removeClass("btn-secondary")
+			$(this).addClass("btn-primary")
+		}
+		console.log("click1")
+		
+
+	});
+
+	$(".btn-secondary").click(function(){
+		console.log("click2")
+		
+	});

@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Product:
+  = @orderline.Product
+%p
+  %b Order:
+  = @orderline.order
+%p
+  %b Totalprice:
+  = @orderline.totalPrice
+%p
+  %b Quantity:
+  = @orderline.quantity
+
+= link_to 'Edit', edit_orderline_path(@orderline)
+\|
+= link_to 'Back', orderlines_path

@@ -1,0 +1,11 @@
+.card.border-secondary.mb-3
+%img.card-img-top{:alt => "venom", :src => "venom.jpg", height: 300 }
+  .card-header 
+    = movie.name
+  .card-body
+    %p.card-text
+      = movie.duration
+  .card-footer
+    %a.card-text
+      = link_to 'buy ticket', controller: "main", action: "show_timetable", name: movie.name
+

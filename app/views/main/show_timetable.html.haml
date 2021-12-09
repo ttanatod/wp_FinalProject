@@ -1,0 +1,6 @@
+%h 
+	= @movie.name
+- @timetables.each do |timetable|
+	%p
+		= timetable.time_start
+		= button_to "#{timetable.time_start.strftime("%H:%M")}", buyticket_path, method: "post", params: {timetable: timetable}
