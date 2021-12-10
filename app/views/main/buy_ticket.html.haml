@@ -7,10 +7,13 @@
 			.row
 				- for j in 1..@column do
 					.col
-						%button.btn.btn-lg.mt-3{id: "#{i}-#{j}",:type => "button", "data-row": i, "data-col": j} 
+						%button.btn.btn-lg.mt-3.btn-seat{id: "#{i}-#{j}",:type => "button", "data-row": i, "data-col": j, "data-type": ""} 
 							= j
-%p
-	%button.btn.btn-secondary.disabled asdf
+		.row.justify-content-end
+			.col-3
+				%button.btn.btn-primary.btn-lg.mt-5{id: "btn-next"}
+					next
+
 :javascript
 	let selected_seat = [];
 	console.log(gon.chair_type)
@@ -19,14 +22,17 @@
 		for (let j = 1;j <= gon.col;j++) {
 			let id = "#" + i + "-" + j
 			console.log(id)
-			if (gon.chair_type[(i-1)*gon.row + j] == "premium") {
+			if (gon.chair_type[(i-1)*gon.row + (j-1)] == "premium") {
 				console.log("premium")
 				$(id).addClass("btn-primary")
-			} else if (gon.chair_type[(i-1)*gon.row + j] == "normal") {
+				$(id).attr("data-type", "premium")
+			} else if (gon.chair_type[(i-1)*gon.row + (j-1)] == "normal") {
 				$(id).addClass("btn-info")
+				$(id).attr("data-type", "normal")
 			}
 		}
 	}
+
 	//second loop set availibility of chair -> sold or not
 	for (let i = 0;i < gon.sold_row.length;i++){
 		let id = "#" + (gon.sold_row[i].charCodeAt(0) - 64) + "-" + gon.sold_col[i]
@@ -36,25 +42,36 @@
 		$(id).addClass("disabled")		
 	}
 
-	$(".btn").click(function(){
+	//click button to select
+	$(".btn-seat").click(function(){
 		console.log("click!")
 		let row = $(this).attr("data-row")
 		let col = $(this).attr("data-col")
 		if(! $(this).hasClass("btn-sedondary")) {
 			if ($(this).hasClass("selected")) {
 				$(this).removeClass("selected")
-				selected_seat = selected_seat.filter(function(item){ return item[0] != row && item[1] != col})
+				selected_seat = selected_seat.filter(function(item){ return item[0] != row || item[1] != col})
 				console.log(selected_seat)
 				console.log("unselected")
 			} else {
 				$(this).addClass("selected")
-				selected_seat.push([row, col])
+				selected_seat.push([row, col, $(this).attr("data-type")])
 				console.log("selected")
 				console.log(selected_seat)
 			}
 		} 		
 
 	});	
+
+
+	$("#btn-next").click(function(){
+		console.log(selected_seat)
+		$.ajax({
+			url: "/ordersummary",
+			type: "POST",
+			data: {seat: selected_seat, timetable: gon.timetable}	
+		});
+	});
 
 / secondary -> sold
 / primary -> premium

@@ -1,3 +1,3 @@
-class Beverage < Product
-	
+class Beverage < ApplicationRecord
+	has_many :orderlines
 end

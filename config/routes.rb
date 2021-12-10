@@ -19,8 +19,9 @@ Rails.application.routes.draw do
   post 'register', to: 'account#create_user'
 
   get 'main', to: 'main#main'
-
   get 'timetable/:name', to: 'main#show_timetable'
-
   post 'buyticket', to: 'main#buy_ticket'
+  get 'ordersummary', to: 'main#order_summary'
+  post 'ordersummary', to: 'main#post_order_summary'
+  get 'createorder', to: 'main#create_order'
 end

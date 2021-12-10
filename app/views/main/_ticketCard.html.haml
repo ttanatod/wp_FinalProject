@@ -1,0 +1,22 @@
+.card.border-secondary.mb-3
+  .card-header 
+    = @movie.name
+  .card-body
+    %p.card-text
+      Theater: 
+      = @theater.name
+    %p.card-text
+      Time: 
+      = session[:timetable]["time_start"][11, 5]
+      - #.strftime("%H:%M")[0]
+    %p.card-text
+      Seat: 
+      = seat
+    %p.card-text
+      Type: 
+      = type
+  .card-footer
+    %p.card-text
+      - price = Chair.get_price(@theater, type)
+      = price
+      - @total_price += price 

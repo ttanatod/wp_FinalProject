@@ -1,0 +1,13 @@
+%h1 order summary
+
+%p 
+	-# puts @selected_seat
+	-@selected_seat.each do |seat, type|
+		= render "ticketCard", seat: seat, type: type
+%p
+	.row.justify-content-between.align-items-center
+		.col
+			TOTAL PRICE: 
+			= @total_price
+		.col-1
+			= link_to "confirm", createorder_path,class: ".btn.btn-primary"

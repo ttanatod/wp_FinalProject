@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_09_164034) do
+ActiveRecord::Schema.define(version: 2021_12_10_185621) do
 
   create_table "beverages", force: :cascade do |t|
     t.string "name"
@@ -51,19 +51,21 @@ ActiveRecord::Schema.define(version: 2021_12_09_164034) do
   end
 
   create_table "orderlines", force: :cascade do |t|
-    t.integer "Product_id", null: false
     t.integer "order_id", null: false
     t.integer "totalPrice"
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["Product_id"], name: "index_orderlines_on_Product_id"
+    t.integer "ticket_id"
+    t.integer "beverage_id"
+    t.boolean "isticket"
+    t.index ["beverage_id"], name: "index_orderlines_on_beverage_id"
     t.index ["order_id"], name: "index_orderlines_on_order_id"
+    t.index ["ticket_id"], name: "index_orderlines_on_ticket_id"
   end
 
   create_table "orders", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.datetime "datetime"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -115,8 +117,9 @@ ActiveRecord::Schema.define(version: 2021_12_09_164034) do
   add_foreign_key "chairs", "theaters"
   add_foreign_key "inventories", "products"
   add_foreign_key "inventories", "users"
-  add_foreign_key "orderlines", "Products"
+  add_foreign_key "orderlines", "beverages"
   add_foreign_key "orderlines", "orders"
+  add_foreign_key "orderlines", "tickets"
   add_foreign_key "orders", "users"
   add_foreign_key "tickets", "chairs"
   add_foreign_key "tickets", "timetables"
