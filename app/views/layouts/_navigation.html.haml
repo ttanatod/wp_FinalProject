@@ -1,0 +1,28 @@
+- if session[:user_id] == nil  
+  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    .container-fluid
+      %a.navbar-brand.disable Major
+      %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
+        %span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+          %li.nav-item
+            %a.nav-link.active{"aria-current" => "page", :href => main_path} Home
+          %li.nav-item
+            %a.nav-link.active{:href => login_path} Login
+          %li.nav-item
+            %a.nav-link.active{:href => register_path} Register
+- else 
+  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    .container-fluid
+      %a.navbar-brand.disable Major
+      %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
+        %span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+          %li.nav-item
+            %a.nav-link.active{"aria-current" => "page", :href => main_path} Home
+          %li.nav-item
+            %a.nav-link.active{:href => myorder_path} My Order
+          %li.nav-item
+            %a.nav-link.active{:href => logout_path} Logout

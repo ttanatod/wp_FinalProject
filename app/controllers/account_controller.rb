@@ -4,7 +4,7 @@ class AccountController < ApplicationController
 
   def login
     if session[:user_id]
-      redirect_to main_path
+      redirect_to main_path, flash: { notice: "you are already logged in"}  
     end
     @disable_nav = true
   end
@@ -26,6 +26,7 @@ class AccountController < ApplicationController
   end
 
   def register
+    session[:user_id] = nil
     @user = User.new
   end
 
@@ -43,6 +44,10 @@ class AccountController < ApplicationController
     end
   end
 
+  def logout
+    session[:user_id] = nil
+    redirect_to main_path, flash:{notice: "Log out successfully"}
+  end 
 
   private
 

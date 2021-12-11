@@ -1,0 +1,39 @@
+%h1 My Order
+/ %p 
+/ 	- @orders.each do |order, orderlines|
+/ 		%p 
+/ 			= "------------------"
+/ 		%p
+/ 			= order
+/ 			- orderlines.each do |orderline|
+/ 				%p
+/ 					= orderline
+%table.table#index
+	%thead
+		%tr
+			%th Order Number
+			%th Name
+			%th Price
+			%th Quantity
+	%tbody
+		- @orders.each do |order, orderlines|
+			- orderlines.each do |orderline|
+				%tr
+					%td= order
+					%td= orderline[0]
+					%td= orderline[1]
+					%td= orderline[2]
+
+:javascript
+	$(document).ready(function() {
+		$('#index').DataTable({
+			order: [[0, 'dsc']],
+			rowGroup: {
+				dataSrc: 0
+			},
+			scrollY:        500,
+			deferRender:    true,
+			scroller:       true,
+			search: false
+		});
+	});

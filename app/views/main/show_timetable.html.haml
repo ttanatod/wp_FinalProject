@@ -1,6 +1,13 @@
 %h 
 	= @movie.name
-- @timetables.each do |timetable|
-	%p
-		= timetable.time_start
-		= button_to "#{timetable.time_start.strftime("%H:%M")}", buyticket_path, method: "post", params: {timetable: timetable}
+- @timetables.each do |theater, timetables|
+	- if timetables.length != 0	
+		%p
+			= theater
+		.row.justify-content-start
+			- timetables.each do |timetable|
+				.col-1
+					= button_to "#{timetable.time_start.strftime("%H:%M")}", buyticket_path, method: "post", params: {timetable: timetable}
+
+%p
+	= button_to "back", main_path, class: "btn btn-secondary btn-lg mt-3", method: "get"

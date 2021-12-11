@@ -9,7 +9,9 @@
 					.col
 						%button.btn.btn-lg.mt-3.btn-seat{id: "#{i}-#{j}",:type => "button", "data-row": i, "data-col": j, "data-type": ""} 
 							= j
-		.row.justify-content-end
+		.row.justify-content-between
+			.col-3
+				= button_to "back", showtime_url(name: @movie_name), method: "get", class: "btn btn-secondary btn-lg mt-5"
 			.col-3
 				%button.btn.btn-primary.btn-lg.mt-5{id: "btn-next"}
 					next
@@ -22,11 +24,11 @@
 		for (let j = 1;j <= gon.col;j++) {
 			let id = "#" + i + "-" + j
 			console.log(id)
-			if (gon.chair_type[(i-1)*gon.row + (j-1)] == "premium") {
+			if (gon.chair_type[(i-1)*gon.col + (j-1)] == "premium") {
 				console.log("premium")
 				$(id).addClass("btn-primary")
 				$(id).attr("data-type", "premium")
-			} else if (gon.chair_type[(i-1)*gon.row + (j-1)] == "normal") {
+			} else if (gon.chair_type[(i-1)*gon.col + (j-1)] == "normal") {
 				$(id).addClass("btn-info")
 				$(id).attr("data-type", "normal")
 			}
@@ -63,11 +65,16 @@
 
 	});	
 
+	for (let key in gon.seat) {
+		let id = "#" + gon.seat[key][0] + "-" + gon.seat[key][1]
+		console.log(id)
+		$(id).click()
+	}
 
 	$("#btn-next").click(function(){
 		console.log(selected_seat)
 		$.ajax({
-			url: "/ordersummary",
+			url: "/addticket",
 			type: "POST",
 			data: {seat: selected_seat, timetable: gon.timetable}	
 		});

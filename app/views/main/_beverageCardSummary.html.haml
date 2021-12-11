@@ -1,0 +1,15 @@
+.card.border-secondary.mb-3
+  .card-header
+    = name
+  .card-body
+    %p.card-text
+      amount: 
+      = amount
+      price:
+      = price
+  .card-footer
+    %p.card-text
+      total price:
+      = price*amount
+      - @total_price += price*amount
+      - puts @total_price

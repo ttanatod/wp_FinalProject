@@ -1,0 +1,35 @@
+%h1 Buy Beverage
+%p 
+	.row.row-cols-1.row-cols-md-3.g-4
+		- @beverages.each do |beverage|
+			.col
+				= render "beverageCard", beverage: beverage
+	.row.justify-content-between
+		.col-1
+			= button_to "back", buyticket_path, method: "post", class: "btn btn-secondary btn-lg mt-5", params: {timetable: session[:timetable_id]}
+		.col-1
+			%button.btn.btn-primary.btn-lg.mt-5{id: "btn-next"}
+				next
+
+:javascript
+		console.log(gon.beverages)
+
+		$("#btn-next").click(function(){
+			console.log("next button")
+			let selected_beverage = [];
+			for (let i = 0;i < gon.beverages.length;i++) {
+				id = "#" + gon.beverages[i].name
+				console.log(id)
+				console.log($(id).val())
+				let amount = parseInt($(id).val());
+				if(amount > 0) {
+					selected_beverage.push([gon.beverages[i].name, amount, gon.beverages[i].price])
+				}
+			}
+			console.log(selected_beverage)
+			$.ajax({
+				url: "/addbeverage",
+				type: "POST",
+				data: {beverage: selected_beverage}	
+			});
+		});

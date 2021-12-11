@@ -16,4 +16,5 @@ class Timetable < ApplicationRecord
   def sold_chair
     return self.tickets.pluck('chair_id')
   end
+
 end
