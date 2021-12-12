@@ -1,0 +1,17 @@
+.card.border-secondary.mt-5
+  .card-body
+    Type: 
+    = @movie.description
+  .card-body
+    %p.card-text 
+      Duration 
+      = @movie.duration
+      minutes
+  .card-body
+    %p.card-text 
+      Date in: 
+      = @movie.date_in
+  .card-body
+    %p.card-text 
+      Date out: 
+      = @movie.date_out

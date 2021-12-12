@@ -23,9 +23,11 @@ class User < ApplicationRecord
 				data = Array.new #name quatity price
 				if orderline.isticket
 					ticket = Ticket.find(orderline.ticket_id)
+					timetable = Timetable.find(ticket.timetable_id)
+					cinema = Theater.find(timetable.theater_id)
 					chair = Chair.find(ticket.chair_id)
 					movie = Movie.find(Timetable.find(ticket.timetable_id).movie_id)
-					name = movie.name + "-" + chair.row + chair.column.to_s
+					name = movie.name + "-" + chair.row + chair.column.to_s + "-(Cinema: #{cinema.name} @ #{timetable.time_start.to_s[0,16]})"
 					quantity = 1
 					price = chair.price
 					data = [name, quantity, price]

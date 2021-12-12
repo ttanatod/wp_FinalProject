@@ -6,7 +6,6 @@ class AccountController < ApplicationController
     if session[:user_id]
       redirect_to main_path, flash: { notice: "you are already logged in"}  
     end
-    @disable_nav = true
   end
 
   def check_login

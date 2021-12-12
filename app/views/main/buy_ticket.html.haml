@@ -1,14 +1,43 @@
-%h1 buy ticket
 %p
-	= @timetable
+	.row.align-items-end
+		.col-md-3.col-sm-6
+			= image_tag "#{@movie.name}.jpg", height: 300 
+		.col-md-9.col-sm-18
+			%p.fs-2.tab
+				= @movie.name
+				&nbsp;
+				= "Cinema: #{@theater.name}"
+				&nbsp;
+				= "Start: #{@timetable.time_start.strftime("%H:%M")} @ #{@timetable.time_start.to_date}"
+			= render "movieCardDetail"
+%p
+	.row.align-items-center.justify-content-center
+		- @chairs_detail.each do |type, price|
+			- if type == "premium"
+				- c = "btn-primary"
+				- p = price
+			- elsif type == "normal"
+				- c = "btn-info"
+				- p = price
+			.col-1.d-flex.justify-content-center{:style => "display: flex; flex-direction: column;"}
+				%div
+					%button{class: "btn #{c} disabled"} X
+				%div.fs-6.mt-1
+					= "#{p} B"
+
 %p
 	.container
 		- for i in 1..@row do
-			.row
+			.row.align-items-center
 				- for j in 1..@column do
-					.col
+					- if j == 1
+						.col-md-auto.fs-4
+							= (i+64).chr
+					.col.d-flex.justify-content-center
 						%button.btn.btn-lg.mt-3.btn-seat{id: "#{i}-#{j}",:type => "button", "data-row": i, "data-col": j, "data-type": ""} 
 							= j
+		.row.mt-3
+			%button.btn.btn-secondary.disabled.d-grid.gap-2 SCREEN
 		.row.justify-content-between
 			.col-3
 				= button_to "back", showtime_url(name: @movie_name), method: "get", class: "btn btn-secondary btn-lg mt-5"

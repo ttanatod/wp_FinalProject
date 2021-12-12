@@ -13,6 +13,13 @@
 
 :javascript
 		console.log(gon.beverages)
+		console.log(gon.selected_beverages)
+
+		for (let key in gon.selected_beverages) {
+			let id = "#" + gon.selected_beverages[key][0]
+			console.log(id)
+			$(id).val(gon.selected_beverages[key][1])
+		}
 
 		$("#btn-next").click(function(){
 			console.log("next button")

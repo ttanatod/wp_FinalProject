@@ -1,22 +1,26 @@
 class MainController < ApplicationController
 	include MainConcern
 
-	before_action :set_user, only: %i[ create_order show_my_order]
+	before_action :set_user, only: %i[ order_summary create_order show_my_order]
 	before_action :clear_all_session, only: %i[ main show_timetable]
-
+	before_action :require_order, only: %i[order_summary]
+	
 	def main
 		@movies = Movie.get_now_showing
+		@movies += Movie.get_coming_soon
 	end
 
 	def show_timetable
 		@movie = Movie.find_by(name: params[:name])
 		@timetables = @movie.get_timetable
+		@empty = true
 		#@timetables = Timetable.where(movie: @movie).order('time_start')
 	end
 
 	def buy_ticket
 		@timetable = Timetable.find(params[:timetable])
 		session[:timetable_id] = @timetable.id
+		@movie = Movie.find(@timetable.movie_id)
 		@movie_name = Movie.find(@timetable.movie_id).name
 		session[:timetable] = params[:timetable]
 		@theater = Theater.find(@timetable.theater_id)
@@ -30,7 +34,7 @@ class MainController < ApplicationController
 		gon.row = @row
 		gon.col = @column
 		gon.chair_type = @theater.get_chair_type
-
+		@chairs_detail = @theater.get_chair_detail
 		gon.seat = nil
 		if session[:seat] != nil
 			gon.seat = session[:seat]
@@ -48,8 +52,7 @@ class MainController < ApplicationController
 	end
 
 	def order_summary
-		puts session[:beverage]
-		session[:user_id] = 1
+
 
 		@movie = Movie.find(session[:timetable]["movie_id"])
 		@theater = Theater.find(session[:timetable]["theater_id"])
@@ -69,10 +72,6 @@ class MainController < ApplicationController
 	end
 
 	def create_order
-		if session[:seat] == nil and session[:beverage] == nil
-			redirect_to main_path, flash:{notice: "please select seat or beverage"}
-		end
-
 		order = Order.create(user: @user)
 		timetable = Timetable.find(session[:timetable]["id"].to_i)
 		
@@ -90,13 +89,15 @@ class MainController < ApplicationController
 				Orderline.create(order: order, quantity: value[1].to_i, beverage: beverage, isticket: false, totalPrice: value[1].to_i*value[2].to_i)
 			end
 		end
-
 		redirect_to main_path, flash:{success: "buy successfully"}
 	end
 
 	def buy_beverage
 		@beverages = Beverage.all
 		gon.beverages = @beverages
+		if session[:beverage] != nil
+			gon.selected_beverages = session[:beverage]
+		end
 	end
 
 	def post_add_beverage
@@ -128,5 +129,9 @@ class MainController < ApplicationController
 			flash = f
     end
 
-
+    def require_order
+		if session[:seat] == nil and session[:beverage] == nil
+			redirect_to main_path, flash:{notice: "please select seat or beverage"}
+		end
+    end
 end

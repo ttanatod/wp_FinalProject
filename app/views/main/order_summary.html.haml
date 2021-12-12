@@ -4,14 +4,18 @@
 	-# puts @selected_seat
 	- if @selected_seat != nil
 		-@selected_seat.each do |seat, type|
-			= render "ticketCard", seat: seat, type: type
+			= render "ticketCardSummary", seat: seat, type: type
 	- if session[:beverage] != nil
 		-session[:beverage].each do |key, value|
 			= render "beverageCardSummary", name: value[0], amount: value[1].to_i, price: value[2].to_i
 %p
-	.row.justify-content-between.align-items-center
+	.row.justify-content-between.align-items-center.mt-5
 		.col
-			TOTAL PRICE: 
-			= @total_price
+			.fs-4
+				TOTAL PRICE: 
+				= @total_price
+	.row.justify-content-between
+		.col-3
+			= button_to "back", buybeverage_path, method: "get", class: "btn btn-secondary btn-lg mt-5"
 		.col-1
-			= link_to "confirm", createorder_path,class: "btn btn-primary"
+			= link_to "confirm", createorder_path,class: "btn btn-primary btn-lg mt-5"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_10_185621) do
+ActiveRecord::Schema.define(version: 2021_12_11_185916) do
 
   create_table "beverages", force: :cascade do |t|
     t.string "name"
@@ -94,12 +94,12 @@ ActiveRecord::Schema.define(version: 2021_12_10_185621) do
   end
 
   create_table "timetables", force: :cascade do |t|
-    t.time "time_start"
-    t.time "time_stop"
     t.integer "movie_id", null: false
     t.integer "theater_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "time_start"
+    t.datetime "time_stop"
     t.index ["movie_id"], name: "index_timetables_on_movie_id"
     t.index ["theater_id"], name: "index_timetables_on_theater_id"
   end

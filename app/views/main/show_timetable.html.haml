@@ -1,13 +1,23 @@
-%h 
-	= @movie.name
-- @timetables.each do |theater, timetables|
-	- if timetables.length != 0	
-		%p
-			= theater
-		.row.justify-content-start
-			- timetables.each do |timetable|
-				.col-1
-					= button_to "#{timetable.time_start.strftime("%H:%M")}", buyticket_path, method: "post", params: {timetable: timetable}
+%p
+	.row.align-items-end.mb-5
+		.col-md-3.col-sm-6
+			= image_tag "#{@movie.name}.jpg", height: 300 
+		.col-md-9.col-sm-18
+			.fs-2
+				= @movie.name
+			= render "movieCardDetail"
 
 %p
-	= button_to "back", main_path, class: "btn btn-secondary btn-lg mt-3", method: "get"
+	- @timetables.each do |theater, timetables|
+		- if timetables.length != 0	
+			- @empty = false
+			%h5.mt-5="Cinema: #{theater}"
+			.row.justify-content-start
+				- timetables.each do |timetable|
+					.col-1
+						= button_to "#{timetable.time_start.strftime("%H:%M")}", buyticket_path, method: "post", params: {timetable: timetable}, class: 'btn btn-info mt-2'
+	- if @empty
+		.fs-4
+			not showing today, please come back later
+%p
+	= button_to "back", main_path, class: "btn btn-secondary btn-lg mt-5", method: "get"
