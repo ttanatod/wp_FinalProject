@@ -1,9 +1,9 @@
 %p
-	.row.align-items-end
-		.col-md-3.col-sm-6
+	.row.align-items-end.justify-content-center
+		.col-lg-3.col-md-5.col-sm-12
 			= image_tag "#{@movie.name}.jpg", height: 300 
-		.col-md-9.col-sm-18
-			%p.fs-2.tab
+		.col-lg-9.col-md-7.col-sm-12.mt-3
+			%p.fs-2.spc
 				= @movie.name
 				&nbsp;
 				= "Cinema: #{@theater.name}"

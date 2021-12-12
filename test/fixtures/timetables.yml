@@ -1,13 +1,29 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  time_start: 2021-11-26 16:51:57
-  time_stop: 2021-11-26 16:51:57
-  movie: one
-  theater: one
+  id: 1
+  time_start: 2021-12-12 09:30:00
+  time_stop: 2021-12-12 11:30:00
+  movie_id: 1
+  theater_id: 1
 
 two:
-  time_start: 2021-11-26 16:51:57
-  time_stop: 2021-11-26 16:51:57
-  movie: two
-  theater: two
+  id: 2
+  time_start: 2021-12-12 12:00:00
+  time_stop: 2021-12-12 14:00:00
+  movie_id: 1 
+  theater_id: 1
+
+three:
+  time_start: 2021-12-13 09:30:00
+  time_stop: 2021-12-13 11:30:00
+  movie_id: 1
+  theater_id: 1
+
+four:
+  time_start: 2021-12-13 12:00:00
+  time_stop: 2021-12-13 14:00:00
+  movie_id: 1
+  theater_id: 1
+
+

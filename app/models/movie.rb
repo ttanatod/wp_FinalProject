@@ -17,10 +17,9 @@ class Movie < ApplicationRecord
 		timetables = Hash.new
 		theater = Theater.all.order('name')
 		theater.each do |theater|
-			timetable = Timetable.where(theater: theater, movie: self).where(['Date(time_start) = ?', Date.today])
+			timetable = Timetable.where(theater: theater, movie: self).where(['Date(time_start) = ?', Date.today]).order('time_start')
 			timetables[theater.name] = timetable
 		end
-		puts timetables
 		return timetables
 	end
 end

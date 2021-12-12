@@ -1,15 +1,43 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  type: 
-  column: MyString
-  row: MyString
-  price: 1
-  theater: one
+  column: 1
+  row: A
+  price: 240
+  theater_id: 1
+  typeofchair: premium
 
 two:
-  type: 
-  column: MyString
-  row: MyString
-  price: 1
-  theater: two
+  column: 2
+  row: A
+  price: 240
+  theater_id: 1
+  typeofchair: premium
+
+three:
+  column: 3
+  row: A
+  price: 240
+  theater_id: 1
+  typeofchair: premium
+
+four:
+  column: 4
+  row: B
+  price: 200
+  theater_id: 1
+  typeofchair: normal
+
+five:
+  column: 5
+  row: B
+  price: 200
+  theater_id: 1
+  typeofchair: normal
+
+six:
+  column: 6
+  row: B
+  price: 200
+  theater_id: 1
+  typeofchair: normal

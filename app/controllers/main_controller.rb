@@ -27,8 +27,8 @@ class MainController < ApplicationController
 			@movie_name = Movie.find(@timetable.movie_id).name
 			session[:timetable] = params[:timetable]
 			@theater = Theater.find(@timetable.theater_id)
-			puts "--------------------------"
-			puts @theater.name
+			# puts "--------------------------"
+			# puts @theater.name
 			@row = @theater.row
 			@column = @theater.column
 			gon.timetable = @timetable
@@ -110,7 +110,7 @@ class MainController < ApplicationController
 
 	def show_my_order
 		@orders = @user.get_all_order
-		puts @orders
+		# puts @orders
 
 	end
 

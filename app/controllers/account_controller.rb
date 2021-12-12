@@ -15,11 +15,11 @@ class AccountController < ApplicationController
     # puts "------email #{email.class}---------"
     # puts "------pass #{pass.class}----------"
     if @user
-      puts '-----------found------------' 
+      # puts '-----------found------------' 
       session[:user_id] = @user.id
       redirect_to main_path, flash:{success: "Log in successfully"}
     else
-      puts '-----------not found-----------'
+      # puts '-----------not found-----------'
       redirect_to main_path, flash:{alert: "Wrong email or password!"}
     end
   end
