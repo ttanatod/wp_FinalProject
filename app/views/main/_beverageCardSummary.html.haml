@@ -1,15 +1,15 @@
 .card.border-secondary.mb-3
-  .card-header
+  .card-header.fs-4
     = name
   .card-body
-    %p.card-text
+    %p.card-text.fs-6
       quantity: 
       = amount
       &nbsp;
       price:
       = price
   .card-footer
-    %p.card-text
+    %p.card-text.fs-6
       total price:
       = price*amount
       - @total_price += price*amount

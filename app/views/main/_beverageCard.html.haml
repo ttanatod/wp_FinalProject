@@ -1,11 +1,11 @@
 .card.border-secondary.mb-3
   = image_tag "#{beverage.name}.jpg", class: 'card-img-top'
-  .card-header
+  .card-header.fs-4
     = beverage.name
   .card-body
-    %p.card-text
+    %p.card-text.fs-6
       Price: 
       = beverage.price
   .card-footer
-    %p.card-text
+    %p.card-text.fs-6
       %input.form-control{:type => "text", id: "#{beverage.name}"}

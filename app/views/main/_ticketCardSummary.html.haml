@@ -1,7 +1,7 @@
 .card.border-secondary.mb-3
-  .card-header 
+  .card-header.fs-4
     = @movie.name
-  .card-body
+  .card-body.fs-6
     Cinema: 
     = @theater.name
     &nbsp;
@@ -18,7 +18,7 @@
     Type: 
     = type
   .card-footer
-    %p.card-text
+    %p.card-text.fs-6
       total price: 
       - price = Chair.get_price(@theater, type)
       = price

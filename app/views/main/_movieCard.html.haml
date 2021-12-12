@@ -1,10 +1,10 @@
 .card.border-secondary.mb-3
   / %img.card-img-top{src: "#{movie.name}.jpg"}
   = image_tag "#{movie.name}.jpg", class: 'card-img-top', height: 613
-  .card-header 
+  .card-header.fs-4
     = movie.name
   .card-body
-    %p.card-text 
+    %p.card-text.fs-6 
       Duration 
       = movie.duration
       minutes
@@ -13,5 +13,5 @@
       %a.card-text
         = link_to 'buy ticket', controller: "main", action: "show_timetable", name: movie.name
     - elsif movie.date_in > Date.today
-      %p.card-text 
+      %p.card-text.fs-6 
         coming soon

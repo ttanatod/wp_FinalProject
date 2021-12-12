@@ -18,26 +18,30 @@ class MainController < ApplicationController
 	end
 
 	def buy_ticket
-		@timetable = Timetable.find(params[:timetable])
-		session[:timetable_id] = @timetable.id
-		@movie = Movie.find(@timetable.movie_id)
-		@movie_name = Movie.find(@timetable.movie_id).name
-		session[:timetable] = params[:timetable]
-		@theater = Theater.find(@timetable.theater_id)
-		puts "--------------------------"
-		puts @theater.name
-		@row = @theater.row
-		@column = @theater.column
-		gon.timetable = @timetable
-		gon.sold_row = @timetable.sold_row
-		gon.sold_col = @timetable.sold_col
-		gon.row = @row
-		gon.col = @column
-		gon.chair_type = @theater.get_chair_type
-		@chairs_detail = @theater.get_chair_detail
-		gon.seat = nil
-		if session[:seat] != nil
-			gon.seat = session[:seat]
+		if params[:timetable] == ""
+			redirect_to main_path
+		else
+			@timetable = Timetable.find(params[:timetable])
+			session[:timetable_id] = @timetable.id
+			@movie = Movie.find(@timetable.movie_id)
+			@movie_name = Movie.find(@timetable.movie_id).name
+			session[:timetable] = params[:timetable]
+			@theater = Theater.find(@timetable.theater_id)
+			puts "--------------------------"
+			puts @theater.name
+			@row = @theater.row
+			@column = @theater.column
+			gon.timetable = @timetable
+			gon.sold_row = @timetable.sold_row
+			gon.sold_col = @timetable.sold_col
+			gon.row = @row
+			gon.col = @column
+			gon.chair_type = @theater.get_chair_type
+			@chairs_detail = @theater.get_chair_detail
+			gon.seat = nil
+			if session[:seat] != nil
+				gon.seat = session[:seat]
+			end
 		end
 	end
 
@@ -53,10 +57,10 @@ class MainController < ApplicationController
 
 	def order_summary
 
-
-		@movie = Movie.find(session[:timetable]["movie_id"])
-		@theater = Theater.find(session[:timetable]["theater_id"])
-
+		if session[:timetable] != nil
+			@movie = Movie.find(session[:timetable]["movie_id"])
+			@theater = Theater.find(session[:timetable]["theater_id"])
+		end
 		@selected_seat = Array.new
 
 		if session[:seat] != nil
@@ -72,10 +76,9 @@ class MainController < ApplicationController
 	end
 
 	def create_order
-		order = Order.create(user: @user)
-		timetable = Timetable.find(session[:timetable]["id"].to_i)
-		
+		order = Order.create(user: @user)		
 		if session[:seat] != nil
+			timetable = Timetable.find(session[:timetable]["id"].to_i)
 			session[:seat].each do |key, value|
 				seat = Chair.find_by(row: (value[0].to_i+64).chr, column: value[1].to_i, theater_id: timetable.theater_id)
 				ticket = Ticket.create(timetable: timetable, chair: seat)
