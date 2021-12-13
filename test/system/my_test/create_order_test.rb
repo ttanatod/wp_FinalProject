@@ -50,11 +50,9 @@ class Test < ApplicationSystemTestCase
     click_on "1", match: :first
     click_on "next"
     sleep 1.5
-    click_on "Beverage"
     fill_in "Coca-Cola", with: "2"
     click_on "next"
-    click_on "next"
-
+    sleep 1.5
     assert_text "TOTAL PRICE: 300"
 
     click_on "confirm"

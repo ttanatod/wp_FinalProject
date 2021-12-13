@@ -76,7 +76,7 @@ class MainController < ApplicationController
 	end
 
 	def create_order
-		order = Order.create(user: @user)		
+		order = Order.create(user: @user)
 		if session[:seat] != nil
 			timetable = Timetable.find(session[:timetable]["id"].to_i)
 			session[:seat].each do |key, value|
@@ -117,6 +117,7 @@ class MainController < ApplicationController
 	private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
+
     	if session[:user_id] != nil 
 	      @user = User.find(session[:user_id])
 	    else 
@@ -128,8 +129,8 @@ class MainController < ApplicationController
     	id = session[:user_id]
     	f = flash
     	session.clear
-			session[:user_id] = id
-			flash = f
+		session[:user_id] = id
+		flash = f
     end
 
     def require_order
